@@ -30,7 +30,6 @@ public final class DungeonTracker {
                 isInDungeon = true;
                 dungeonType = DungeonType.valueOf(matcher.group(1).toUpperCase());
                 client.getNetworkHandler().sendCommand("selectclass");
-
                 DungeonCallbacks.ENTER.invoker().onEnterDungeon(client, dungeonType);
             }
             else if (message.equals("Dungeon failed! The whole team died!")) {

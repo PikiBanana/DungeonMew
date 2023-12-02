@@ -26,11 +26,28 @@ public abstract class ItemStackMixin {
         if (Features.SHOW_CUSTOM_MODEL_DATA.getValue() && getNbt() != null && getNbt().contains("CustomModelData")) {
             int customModelData = getNbt().getInt("CustomModelData");
 
+            String formattedCustomModelData = formatCustomModelData(customModelData);
+
             original.add(
                     Text.literal("CustomModelData: ").formatted(Formatting.YELLOW)
-                            .append(Text.literal(String.valueOf(customModelData)).formatted(Formatting.AQUA))
+                            .append(Text.literal(formattedCustomModelData).formatted(Formatting.AQUA))
             );
         }
         return original;
+    }
+
+    private String formatCustomModelData(int value) {
+        String stringValue = String.valueOf(value);
+        StringBuilder result = new StringBuilder();
+
+        int length = stringValue.length();
+        for (int i = 0; i < length; i++) {
+            result.append(stringValue.charAt(i));
+            if ((length - i - 1) % 3 == 0 && i < length - 1) {
+                result.append('_');
+            }
+        }
+
+        return result.toString();
     }
 }
